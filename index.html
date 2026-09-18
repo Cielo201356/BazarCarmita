@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Bazar Carmita ofrece cosméticos premium y rutina de belleza inspirada en el estilo de Cristiano Ronaldo: cuidado, brillo y confianza."
+    />
+    <title>Bazar Carmita</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="topbar">
+      <p>Promo exclusiva: envío gratis en pedidos mayores a $80 | 10% OFF en kits premium</p>
+    </div>
+
+    <header class="site-header">
+      <div class="container header-inner">
+        <a class="brand" href="#inicio" aria-label="Ir al inicio de Bazar Carmita">
+          <span class="brand-mark">BC</span>
+          <span class="brand-copy">
+            <strong>Bazar Carmita</strong>
+            <small>Beauty boutique</small>
+          </span>
+        </a>
+
+        <nav id="mainNav" class="main-nav" aria-label="Navegación principal">
+          <a href="#inicio">Inicio</a>
+          <a href="#coleccion">Colección</a>
+          <a href="#destacados">Destacados</a>
+          <a href="#reviews">Reseñas</a>
+          <a href="#contacto">Contacto</a>
+        </nav>
+
+        <div class="header-actions">
+          <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="mainNav" aria-label="Abrir menú de navegación">
+            Menú
+          </button>
+          <button class="icon-button" type="button" aria-label="Buscar productos">⌕</button>
+          <button class="cart-button" type="button" aria-label="Productos en el carrito">
+            <span>Carrito</span>
+            <span class="cart-count" id="cartCount">0</span>
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <main id="inicio">
+      <section class="hero">
+        <div class="container hero-grid">
+          <div class="hero-copy">
+            <p class="eyebrow">Ritual de belleza premium</p>
+            <h1>Confianza, brillo y estilo con la energía del campeón.</h1>
+            <p class="hero-text">
+              Descubre una colección pensada para resaltar tu belleza con fórmulas de alto rendimiento,
+              acabados impecables y una estética que combina disciplina, elegancia y glamour.
+            </p>
+            <div class="hero-actions">
+              <a class="primary-button" href="#coleccion">Comprar ahora</a>
+              <a class="secondary-button" href="#destacados">Ver best sellers</a>
+            </div>
+            <ul class="hero-stats" aria-label="Estadísticas de la boutique">
+              <li><strong>4.9/5</strong><span>Valoración</span></li>
+              <li><strong>12k+</strong><span>Clientes</span></li>
+              <li><strong>48h</strong><span>Envío</span></li>
+            </ul>
+          </div>
+
+          <div class="hero-visual" aria-label="Fotografía de belleza boutique">
+            <img
+              src="https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?auto=format&fit=crop&w=900&q=80"
+              alt="Modelo con maquillaje impecable y estilo sofisticado en una sesión de belleza premium"
+            />
+          </div>
+        </div>
+      </section>
+
+      <section class="categories" aria-label="Categorías de productos">
+        <div class="container category-row" role="group" aria-label="Filtrar productos por categoría">
+          <button type="button" class="category-pill active" aria-pressed="true">Todos</button>
+          <button type="button" class="category-pill" aria-pressed="false">Base</button>
+          <button type="button" class="category-pill" aria-pressed="false">Ojos</button>
+          <button type="button" class="category-pill" aria-pressed="false">Labios</button>
+          <button type="button" class="category-pill" aria-pressed="false">Skincare</button>
+          <button type="button" class="category-pill" aria-pressed="false">Accesorios</button>
+        </div>
+      </section>
+
+      <section id="coleccion" class="products-section">
+        <div class="container section-heading">
+          <div>
+            <p class="eyebrow">Colección CR7</p>
+            <h2>Productos diseñados para brillar sin esfuerzo</h2>
+          </div>
+          <a href="#contacto">Ver todas las ofertas</a>
+        </div>
+
+        <div class="container product-grid" aria-label="Lista de productos de belleza premium">
+          <article class="product-card">
+            <img
+              src="https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=700&q=80"
+              alt="Base de maquillaje de cobertura ligera con acabado natural para piel radiante"
+            />
+            <div class="product-info">
+              <span class="tag">Best seller</span>
+              <h3>Base Elite Glow</h3>
+              <p>Acabado natural con cobertura modulable para un look impecable.</p>
+              <div class="product-meta">
+                <strong>$48</strong>
+                <button type="button" class="add-to-cart" aria-label="Añadir Base Elite Glow al carrito">Añadir al carrito</button>
+              </div>
+            </div>
+          </article>
+
+          <article class="product-card">
+            <img
+              src="https://images.unsplash.com/photo-1586495777744-4413f21062fa?auto=format&fit=crop&w=700&q=80"
+              alt="Paleta de sombras con tonos cálidos para un look de ojos sofisticado"
+            />
+            <div class="product-info">
+              <span class="tag">Nuevo</span>
+              <h3>Paleta Midnight</h3>
+              <p>Matices intensos con brillo sutil para una mirada intensa y elegante.</p>
+              <div class="product-meta">
+                <strong>$52</strong>
+                <button type="button" class="add-to-cart" aria-label="Añadir Paleta Midnight al carrito">Añadir al carrito</button>
+              </div>
+            </div>
+          </article>
+
+          <article class="product-card">
+            <img
+              src="https://images.unsplash.com/photo-1571781926291-c477ebfd024b?auto=format&fit=crop&w=700&q=80"
+              alt="Bálsamo labial con tono nude y brillo natural para labios sedosos"
+            />
+            <div class="product-info">
+              <span class="tag">Premium</span>
+              <h3>Gloss Velvet</h3>
+              <p>Textura cremosa que hidrata y entrega un brillo seductor y duradero.</p>
+              <div class="product-meta">
+                <strong>$26</strong>
+                <button type="button" class="add-to-cart" aria-label="Añadir Gloss Velvet al carrito">Añadir al carrito</button>
+              </div>
+            </div>
+          </article>
+
+          <article class="product-card">
+            <img
+              src="https://images.unsplash.com/photo-1526045478516-99145907023c?auto=format&fit=crop&w=700&q=80"
+              alt="Set de cuidado facial con sérum y crema hidratante para piel luminosa"
+            />
+            <div class="product-info">
+              <span class="tag">Rutina</span>
+              <h3>Glow Ritual</h3>
+              <p>Kit para piel revitalizada con hidratación profunda y efecto luminoso.</p>
+              <div class="product-meta">
+                <strong>$64</strong>
+                <button type="button" class="add-to-cart" aria-label="Añadir Glow Ritual al carrito">Añadir al carrito</button>
+              </div>
+            </div>
+          </article>
+
+          <article class="product-card">
+            <img
+              src="https://images.unsplash.com/photo-1512496015851-a90fb38ba796?auto=format&fit=crop&w=700&q=80"
+              alt="Perfume de lujo con envase elegante para una esencia sofisticada"
+            />
+            <div class="product-info">
+              <span class="tag">Edición</span>
+              <h3>Perfume Icon</h3>
+              <p>Notas frescas y amaderadas para una presencia irresistible y refinada.</p>
+              <div class="product-meta">
+                <strong>$72</strong>
+                <button type="button" class="add-to-cart" aria-label="Añadir Perfume Icon al carrito">Añadir al carrito</button>
+              </div>
+            </div>
+          </article>
+
+          <article class="product-card">
+            <img
+              src="https://images.unsplash.com/photo-1596462502278-27bfdc403348?auto=format&fit=crop&w=700&q=80"
+              alt="Brocha de maquillaje de alta calidad para aplicación precisa y elegante"
+            />
+            <div class="product-info">
+              <span class="tag">Accesorio</span>
+              <h3>Brocha Pro Luxe</h3>
+              <p>Cerdas suaves y profesionales para una aplicación impecable cada día.</p>
+              <div class="product-meta">
+                <strong>$19</strong>
+                <button type="button" class="add-to-cart" aria-label="Añadir Brocha Pro Luxe al carrito">Añadir al carrito</button>
+              </div>
+            </div>
+          </article>
+
+          <article class="product-card">
+            <img
+              src="https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?auto=format&fit=crop&w=700&q=80"
+              alt="Mascarilla facial con textura hidratante para un acabado luminoso"
+            />
+            <div class="product-info">
+              <span class="tag">Cuidado</span>
+              <h3>Mascarilla Diamond</h3>
+              <p>Fórmula hidratante que ayuda a calmar y devolver brillo a la piel.</p>
+              <div class="product-meta">
+                <strong>$34</strong>
+                <button type="button" class="add-to-cart" aria-label="Añadir Mascarilla Diamond al carrito">Añadir al carrito</button>
+              </div>
+            </div>
+          </article>
+
+          <article class="product-card">
+            <img
+              src="https://images.unsplash.com/photo-1556228578-8c89e6adf883?auto=format&fit=crop&w=700&q=80"
+              alt="Esmalte de uñas acabado dorado y elegante para una manicura sofisticada"
+            />
+            <div class="product-info">
+              <span class="tag">Trend</span>
+              <h3>Esmalte Gold Edge</h3>
+              <p>Color vibrante y finish brillante para un detalle de lujo en cada detalle.</p>
+              <div class="product-meta">
+                <strong>$22</strong>
+                <button type="button" class="add-to-cart" aria-label="Añadir Esmalte Gold Edge al carrito">Añadir al carrito</button>
+              </div>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section id="destacados" class="feature-banner" aria-label="Beneficios destacados">
+        <div class="container feature-grid">
+          <div>
+            <p class="eyebrow">Calidad premium</p>
+            <h2>La fórmula que acompaña cada movimiento del día.</h2>
+          </div>
+          <div class="feature-list">
+            <div>
+              <strong>Ingredientes</strong>
+              <span>Activos de alta concentración y bajo irritación.</span>
+            </div>
+            <div>
+              <strong>Resultados</strong>
+              <span>Texturas que combaten la grasa y realzan el brillo.</span>
+            </div>
+            <div>
+              <strong>Entrega</strong>
+              <span>Paquetería premium y seguimiento para cada pedido.</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="reviews" class="testimonials" aria-label="Opiniones de clientes">
+        <div class="container testimonial-grid">
+          <article>
+            <p>“La experiencia fue impecable: packaging elegante, textura premium y un acabado que se ve muy natural.”</p>
+            <strong>— Sofia M.</strong>
+          </article>
+          <article>
+            <p>“El kit de Glow Ritual me ayudó a mantener mi piel saludable y luminosa durante semanas.”</p>
+            <strong>— Camila R.</strong>
+          </article>
+          <article>
+            <p>“La colección CR7 tiene ese equilibrio perfecto entre performance y estilo de alto nivel.”</p>
+            <strong>— Andrea L.</strong>
+          </article>
+        </div>
+      </section>
+    </main>
+
+    <footer id="contacto" class="site-footer">
+      <div class="container footer-grid">
+        <div>
+          <a class="brand footer-brand" href="#inicio" aria-label="Volver al inicio de Bazar Carmita">
+            <span class="brand-mark">BC</span>
+            <span class="brand-copy">
+              <strong>Bazar Carmita</strong>
+              <small>Beauty boutique</small>
+            </span>
+          </a>
+          <p>Cosméticos premium que fusionan belleza, disciplina y confianza para tu día a día.</p>
+        </div>
+
+        <div>
+          <h3>Explorar</h3>
+          <ul>
+            <li><a href="#coleccion">Colección</a></li>
+            <li><a href="#destacados">Destacados</a></li>
+            <li><a href="#reviews">Reseñas</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h3>Contacto</h3>
+          <ul>
+            <li><a href="mailto:hola@bazarcarmita.com">hola@bazarcarmita.com</a></li>
+            <li><a href="tel:+18005551234">+1 (800) 555-1234</a></li>
+            <li>Atención 24/7</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="container footer-bottom">
+        <p>© 2026 Bazar Carmita. Todos los derechos reservados.</p>
+      </div>
+    </footer>
+
+    <script src="script.js"></script>
+  </body>
+</html>
