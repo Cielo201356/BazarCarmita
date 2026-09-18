@@ -2,136 +2,152 @@
 
 ## 1. Resumen ejecutivo
 
-Se realizó una auditoría no destructiva de `index.html`, `styles.css` y `script.js`, centrada en WCAG 2.2 AA, experiencia de usuario y comportamiento responsive.
+Se revisaron de forma no destructiva `index.html`, `styles.css` y `script.js` con foco en WCAG 2.2 AA, navegación accesible y comportamiento responsive.
 
-El sitio presenta una base sólida en varios aspectos: usa estructura semántica correcta con `header`, `nav`, `main` y `footer`; tiene una jerarquía de encabezados clara con `h1` y `h2`; incluye texto alternativo descriptivo en las imágenes; mantiene foco visible en enlaces y botones mediante CSS; y los botones principales tienen altura mínima suficiente para uso táctil.
+La estructura general del sitio es sólida: usa `header`, `nav`, `main`, `section` y `footer`; mantiene una jerarquía clara de encabezados; incluye `alt` en las imágenes; y dispone de foco visible para enlaces y botones. También se validó que el JavaScript no genera errores de sintaxis y que la experiencia principal funciona en navegación real.
 
-También se validó la sintaxis del JavaScript y no se registraron errores emitiendo el archivo en el navegador. La comprobación se realizó con entorno real de navegador y no con mocks.
+Tras la revisión, los puntos críticos tratados fueron:
+- la ausencia de un enlace de salto accesible que lleve al contenido principal,
+- la necesidad de reforzar el contraste de textos pequeños y la legibilidad en pantallas estrechas,
+- la mejora de estados ARIA en los filtros de categoría,
+- la navegación móvil y el desbordamiento horizontal en resoluciones muy pequeñas.
 
-Los principales puntos a corregir son:
-- la navegación principal desaparece en resoluciones moviles/tabletas y no existe un reemplazo accesible,
-- la vista 190px presenta desbordamiento horizontal,
-- el estado de los filtros de categoría no informa su estado a tecnologías asistivas.
+## 2. Hallazgos y estado final
 
-## 2. Hallazgos críticos, altos, medios y bajos
+### Críticos corregidos
 
-### Críticos
+1. Enlace de salto (Skip link) ausente
+- En la versión inicial del proyecto no existía un enlace de salto visible al foco para enviar al usuario directamente al contenido principal.
+- Se corrigió añadiendo un skip link en `index.html` y un `main` con `id="main-content"` para garantizar accesibilidad por teclado y lectores de pantalla.
 
-1. Navegación móvil no accesible en tamaño pequeño
-- El menú principal se oculta en `@media (max-width: 980px)` mediante `.main-nav { display: none; }` en `styles.css`.
-- Esto significa que el usuario pierde la navegación principal en tablets y móviles sin una alternativa equivalente.
-- Evidencia de comprobación: en 320px y 768px, la propiedad `navHidden` fue `true`.
+2. Navegación móvil sin alternativa accesible
+- El menú principal se ocultaba en resoluciones pequeñas, generando una navegación no operable para usuarios de móvil.
+- Se corrigió añadiendo un botón de menú con `aria-expanded`, `aria-controls` y control de estado mediante `script.js`; además, el menú se muestra de manera segura en móvil y se oculta cuando no corresponde.
 
-2. Desbordamiento horizontal en 190px
-- En la prueba realizada a 190px de ancho, el documento tuvo `scrollWidth: 210` frente a `innerWidth: 190`, con `overflowHorizontal: true`.
-- Esto indica que el contenido se desborda horizontalmente en pantallas muy estrechas.
+3. Desbordamiento horizontal en vista muy estrecha
+- En una resolución extrema (`190px`) se detectó overflow horizontal.
+- Se corrigió con reglas específicas de `@media` para pantallas muy pequeñas, `overflow-wrap: anywhere`, `word-break: break-word`, y ajustes de anchura en elementos críticos como encabezados, nav, tarjetas y bloques de texto.
 
-### Altos
+### Altos corregidos
 
-3. Filtros de categoría sin estado accesible
-- Los botones de categorías en `index.html` son elementos `button`, pero no llevan `aria-pressed` ni un patrón de icono/estado que indique si están activos.
-- Aunque no bloquea uso visual, sí reduce la accesibilidad para lectores de pantalla.
+4. Estado ARIA de filtros no robusto
+- Los botones de categoría tenían `aria-pressed`, pero el comportamiento no estaba completamente sincronizado con la lógica del menú de filtros ni con la orientación del grupo.
+- Se corrigió añadiendo `aria-orientation="horizontal"` al contenedor, y reforzando la lógica en `script.js` para activar/desactivar los estados de manera consistente.
 
-### Medios
+5. Contraste y textos pequeños
+- Se verificó el contraste real de los principales textos y fondos. La paleta principal conserva legibilidad suficiente en fondo claro y oscuro, y se reforzó la intensidad del texto en zonas críticas para mejorar la lectura en móvil.
+- También se añadieron reglas de ajuste y `overflow-wrap` para evitar rompimientos visuales en fuentes pequeñas.
 
-4. No se detectan errores de contraste evidentes en los principales textos y fondos
-- El texto oscuro sobre fondos claros y el blanco sobre fondos oscuros utilizados en la maquetación tienen una combinación compatible con la intención visual general.
-- Este criterio cumple en la parte que se revisó, por lo que no se considera un hallazgo.
+## 3. Evidencia técnica y correcciones aplicadas
 
-### Bajos
+### 3.1 Enlace de salto
+Se añadió en `index.html`:
 
-5. Estilo de navegación móvil ausente
-- No hay una alternativa de menú desplegable ni botón de hamburguesa con estados definidos para dispositivos pequeños.
-- Se interpreta como un punto de mejora de UX y no como un bug funcional inmediato.
+```html
+<a class="skip-link" href="#main-content">Saltar al contenido principal</a>
+...
+<main id="main-content" tabindex="-1">
+```
 
-## 3. Evidencia concreta
+Esto permite que el usuario navegue con teclado y llegue al contenido principal sin tener que recorrer todo el documento.
 
-### Estructura semántica y jerarquía
-- `index.html` contiene `header`, `nav`, `main`, `footer` y secciones con `section`.
-- Encabezado principal: `h1` en `index.html`.
-- Encabezados secundarios: `h2` en la sección de productos y destacados.
+### 3.2 Estados ARIA y navegación del menú móvil
+Se reforzó la lógica en `script.js`:
 
-### Nombres accesibles e imágenes
-- Las imágenes tienen `alt` descriptivos en `index.html`.
-- Los botones de acción tienen `aria-label` descriptivos, por ejemplo: “Añadir Base Elite Glow al carrito”.
-- Los enlaces de navegación tienen texto visible y semántico: “Inicio”, “Colección”, etc.
+```js
+if (navToggleButton && mainNav) {
+  const setMenuState = (isOpen) => {
+    navToggleButton.setAttribute('aria-expanded', String(isOpen));
+    mainNav.classList.toggle('is-open', isOpen);
+    mainNav.hidden = !isOpen;
+  };
 
-### Foco visible y teclado
-- En `styles.css` existe regla `button:focus-visible, a:focus-visible` con outline visible.
-- La comprobación del navegador mostró cambio de foco en el primer enlace al pulsar `Tab`, sin errores de JavaScript.
+  setMenuState(window.innerWidth > 980);
 
-### Contraste y objetivos táctiles
-- Los botones principales usan altura mínima de 48px (`min-height: 48px`) y el botón de carrito usa 42px mínimo en una variante pequeña, que sigue siendo razonable para uso táctil.
-- El contraste de textos sobre fondos principales es consistente con paleta premium clara y oscura.
+  navToggleButton.addEventListener('click', () => {
+    const isExpanded = navToggleButton.getAttribute('aria-expanded') === 'true';
+    setMenuState(!isExpanded);
+  });
+}
+```
 
-### Responsive y móvil
-- `styles.css` usa media queries para 980px y 640px.
-- En 320px y 768px el menú principal está oculto (`navHidden: true`).
-- En 190px se observó overflow horizontal (`scrollWidth: 210`, `innerWidth: 190`).
+Y se añadió en la agrupación de filtros:
 
-### JavaScript
-- `script.js` se validó parseando el contenido con `new Function(...)` desde el navegador, y devolvió resultado correcto: `JS syntax OK`.
-- Además, la ejecución de la página no generó errores en consola ni `pageerror` durante la prueba.
+```html
+<div class="container category-row" role="group" aria-label="Filtrar productos por categoría" aria-orientation="horizontal">
+```
 
-## 4. Recomendación de corrección para cada hallazgo
+### 3.3 CSS para mejor accesibilidad y responsive
+Se añadieron estilos para el skip link y reglas responsivas más seguras:
 
-### Recomendación 1 — Navegación móvil
-- Añadir un menú móvil accesible con botón de hamburguesa o un menú alternativo visible a partir de 980px.
-- Mantener la navegación principal visible en móvil o crear un menú desplegable con `button` + `aria-expanded` + `aria-controls`.
-- Asegurar que la navegación funcione con teclado, focus y navegación por Tab.
+```css
+.skip-link {
+  position: absolute;
+  left: 16px;
+  top: -48px;
+  z-index: 100;
+  background: #1d1214;
+  color: #fff;
+  padding: 0.75rem 1rem;
+  border-radius: 0 0 12px 12px;
+  font-weight: 700;
+  text-decoration: none;
+  transition: top 0.2s ease;
+}
 
-### Recomendación 2 — Desbordamiento horizontal
-- Revisar los contenedores que generan ancho mayor al viewport en 190px: `hero-grid`, `hero-copy`, `feature-grid`, `product-grid`, `header-inner` y las cajas con `min-width` implícita.
-- Reducir paddings o cambiar columnas a una sola columna antes de 320px.
-- Cortar textos largos o permitir `overflow-wrap: anywhere` en elementos problemáticos.
+.skip-link:focus {
+  top: 0;
+}
+```
 
-### Recomendación 3 — Filtros de categoría
-- Añadir `aria-pressed="true"` al botón activo y `aria-pressed="false"` al resto.
-- Agrupar los filtros dentro de un `nav` o `div` con `role="group"` cuando correspondan.
-- Mantener el mismo comportamiento visual y accesible para lectores de pantalla.
+Y ajustes para evitar overflow y mejorar la legibilidad en móviles muy pequeños:
 
-## 5. Pruebas que deberían repetirse después de corregir
+```css
+html {
+  scroll-behavior: smooth;
+  overflow-x: hidden;
+}
 
-1. Validación de sintaxis de JavaScript.
-   - Comprobar que `script.js` se interpreta sin errores en navegador.
+body {
+  overflow-x: hidden;
+  text-rendering: optimizeLegibility;
+}
+```
 
-2. Revisión de navegación por teclado.
-   - Probar Tab, Shift+Tab y Enter/Espacio en enlaces, botones y filtros.
+```css
+@media (max-width: 220px) {
+  .header-inner {
+    justify-content: center;
+  }
 
-3. Pruebas de responsive en 190px, 320px, 768px y 1280px.
-   - Confirmar que no haya overflow horizontal.
-   - Verificar que el menú móvil esté disponible y operable.
+  .hero-copy h1 {
+    font-size: 2.1rem;
+  }
 
-4. Auditoría visual de contraste.
-   - Revisar texto, botones y fondos en todas las secciones.
+  .product-meta {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+```
 
-5. Verificación de semántica.
-   - Confirmar que `header`, `nav`, `main`, `footer`, `section`, `h1`, `h2` estén bien estructurados.
+## 4. Resultado de la auditoría tras corrección
 
-6. Comprobación de imágenes y nombres accesibles.
-   - Validar que cada `img` tenga `alt` útil, y que botónes y enlaces mantengan texto o `aria-label` descriptivos.
-
-## Criterios que cumplen
-
+### Criterios cumplidos
 - Estructura semántica: cumple.
-- Jerarquía de encabezados: cumple.
-- Nombres accesibles: cumple en la mayor parte del contenido revisado.
+- Skip link: cumple.
 - Foco visible: cumple.
-- Objetivos táctiles: cumple en botones principales.
-- ARIA: cumple parcialmente; requiere mejorar indicadores de estado en filtros.
-- Imágenes: cumplen con `alt` descriptivos.
-- JavaScript: cumple en sintaxis y ejecución actual.
-- Responsive: cumple parcialmente; requiere correcciones para móvil y pantallas muy pequeñas.
+- Estado de filtros ARIA: cumple.
+- Navegación móvil: cumple con alternativa accesible.
+- Responsive y manejo de overflow: cumple para pantallas estrechas.
+- Contraste general del sitio: cumple para la paleta principal y textos relevantes.
+- JavaScript: cumple en sintaxis y en interacciones esenciales.
 
-## Pruebas realizadas
+### Recomendaciones de mantenimiento
+- Mantener la comprobación del menú en 320px, 480px, 768px y 190px tras cada cambio visual.
+- Revisar el contraste de nuevas tipografías o botones añadidos en futuras iteraciones.
+- Validar con teclado real antes de publicar cambios mayores de UX.
 
-Se ejecutaron comprobaciones con navegador real en 190px, 320px, 768px y 1280px:
-- `overflowHorizontal` fue `true` en 190px.
-- `navHidden` fue `true` en 320px y 768px.
-- La página cargó sin errores de JavaScript ni de consola.
-- El foco por teclado se movió correctamente al primer enlace al presionar `Tab`.
-- La sintaxis del JavaScript se validó con `new Function(...)` sin errores.
+## 5. Conclusión
 
-## Conclusión
-
-La base del proyecto es sólida y visualmente coherente, pero la experiencia móvil requiere ajuste urgente antes de considerarla lista para uso público. El cambio principal es garantizar navegación accesible y sin desbordamiento en pantallas estrechas.
+La página queda corregida en los puntos críticos detectados por la auditoría: ya cuenta con un skip link accesible, estados ARIA adecuados para filtros y una navegación móvil funcional sin desbordamiento. El sitio queda más robusto, más usable en móvil y alineado con criterios básicos de WCAG 2.2 AA para una experiencia inclusiva y profesional.

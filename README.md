@@ -1,6 +1,6 @@
 # Bazar Carmita
 
-Primera versión de una landing page estática para una boutique de belleza inspirada en Cristiano Ronaldo, desarrollada con HTML semántico, CSS moderno y JavaScript vanilla.
+Primera versión de una landing page estática para una boutique de belleza premium, desarrollada con HTML semántico, CSS moderno y JavaScript vanilla.
 
 ## Incluye
 

@@ -13,25 +13,37 @@ const updateCartCount = () => {
 };
 
 if (navToggleButton && mainNav) {
+  const setMenuState = (isOpen) => {
+    navToggleButton.setAttribute('aria-expanded', String(isOpen));
+    mainNav.classList.toggle('is-open', isOpen);
+    mainNav.hidden = !isOpen;
+  };
+
+  setMenuState(window.innerWidth > 980);
+
   navToggleButton.addEventListener('click', () => {
     const isExpanded = navToggleButton.getAttribute('aria-expanded') === 'true';
-    navToggleButton.setAttribute('aria-expanded', String(!isExpanded));
-    mainNav.classList.toggle('is-open', !isExpanded);
+    setMenuState(!isExpanded);
+  });
+
+  window.addEventListener('resize', () => {
+    if (window.innerWidth > 980) {
+      mainNav.hidden = false;
+      mainNav.classList.remove('is-open');
+      navToggleButton.setAttribute('aria-expanded', 'false');
+    } else if (!mainNav.hidden && navToggleButton.getAttribute('aria-expanded') === 'true') {
+      mainNav.hidden = false;
+    }
   });
 }
 
 categoryButtons.forEach((button) => {
   button.addEventListener('click', () => {
-    const isActive = button.classList.contains('active');
-
     categoryButtons.forEach((item) => {
-      item.classList.toggle('active', item === button);
-      item.setAttribute('aria-pressed', String(item === button));
+      const isSelected = item === button;
+      item.classList.toggle('active', isSelected);
+      item.setAttribute('aria-pressed', String(isSelected));
     });
-
-    if (isActive) {
-      button.setAttribute('aria-pressed', 'true');
-    }
   });
 });
 
